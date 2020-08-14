@@ -12,7 +12,10 @@ target 'RxTestSample' do
   pod 'RxDataSources'
   pod 'RxOptional'
   pod 'RxGesture'
+  pod 'RxAlamofire'
 
+  pod 'SnapKit'
+  
   target 'RxTestSampleTests' do
     inherit! :search_paths
     pod 'RxTest'

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,11 @@
 		28A0C4C124E62288001EEBEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28A0C4C024E62288001EEBEF /* Assets.xcassets */; };
 		28A0C4C424E62288001EEBEF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28A0C4C224E62288001EEBEF /* LaunchScreen.storyboard */; };
 		28A0C4CF24E62288001EEBEF /* RxTestSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A0C4CE24E62288001EEBEF /* RxTestSampleTests.swift */; };
+		28A0C4DB24E62E2B001EEBEF /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A0C4DA24E62E2B001EEBEF /* ListViewModel.swift */; };
+		28A0C4E024E63C82001EEBEF /* SearchItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A0C4DF24E63C82001EEBEF /* SearchItemCell.swift */; };
+		28A0C4E224E63F19001EEBEF /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A0C4E124E63F19001EEBEF /* Router.swift */; };
+		28A0C4E424E65BB2001EEBEF /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A0C4E324E65BB2001EEBEF /* APIService.swift */; };
+		28A0C4E724E65D38001EEBEF /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A0C4E624E65D38001EEBEF /* SearchModel.swift */; };
 		66934BAB8B7B2950990E0FDE /* Pods_RxTestSampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9375461876242DE1114A3306 /* Pods_RxTestSampleTests.framework */; };
 		A1A6AC09C3CAB5F7A8C35775 /* Pods_RxTestSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4547C4AD06B151E045D521E /* Pods_RxTestSample.framework */; };
 /* End PBXBuildFile section */
@@ -40,6 +45,11 @@
 		28A0C4CA24E62288001EEBEF /* RxTestSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RxTestSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		28A0C4CE24E62288001EEBEF /* RxTestSampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxTestSampleTests.swift; sourceTree = "<group>"; };
 		28A0C4D024E62288001EEBEF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		28A0C4DA24E62E2B001EEBEF /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
+		28A0C4DF24E63C82001EEBEF /* SearchItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemCell.swift; sourceTree = "<group>"; };
+		28A0C4E124E63F19001EEBEF /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		28A0C4E324E65BB2001EEBEF /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		28A0C4E624E65D38001EEBEF /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		29F5E67CC6E6DCBE2E8DFE61 /* Pods-RxTestSampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxTestSampleTests.release.xcconfig"; path = "Target Support Files/Pods-RxTestSampleTests/Pods-RxTestSampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		6A447375C95F15833F73BB78 /* Pods-RxTestSampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxTestSampleTests.debug.xcconfig"; path = "Target Support Files/Pods-RxTestSampleTests/Pods-RxTestSampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9375461876242DE1114A3306 /* Pods_RxTestSampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxTestSampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,7 +86,6 @@
 				6A447375C95F15833F73BB78 /* Pods-RxTestSampleTests.debug.xcconfig */,
 				29F5E67CC6E6DCBE2E8DFE61 /* Pods-RxTestSampleTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -103,9 +112,12 @@
 		28A0C4B624E62286001EEBEF /* RxTestSample */ = {
 			isa = PBXGroup;
 			children = (
+				28A0C4E524E65D2B001EEBEF /* Model */,
+				28A0C4DE24E63C62001EEBEF /* Network */,
+				28A0C4DC24E62FDE001EEBEF /* ViewModel */,
+				28A0C4DD24E62FF4001EEBEF /* View */,
 				28A0C4B724E62286001EEBEF /* AppDelegate.swift */,
 				28A0C4B924E62286001EEBEF /* SceneDelegate.swift */,
-				28A0C4BB24E62286001EEBEF /* ViewController.swift */,
 				28A0C4BD24E62286001EEBEF /* Main.storyboard */,
 				28A0C4C024E62288001EEBEF /* Assets.xcassets */,
 				28A0C4C224E62288001EEBEF /* LaunchScreen.storyboard */,
@@ -121,6 +133,40 @@
 				28A0C4D024E62288001EEBEF /* Info.plist */,
 			);
 			path = RxTestSampleTests;
+			sourceTree = "<group>";
+		};
+		28A0C4DC24E62FDE001EEBEF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				28A0C4DA24E62E2B001EEBEF /* ListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		28A0C4DD24E62FF4001EEBEF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				28A0C4BB24E62286001EEBEF /* ViewController.swift */,
+				28A0C4DF24E63C82001EEBEF /* SearchItemCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		28A0C4DE24E63C62001EEBEF /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				28A0C4E124E63F19001EEBEF /* Router.swift */,
+				28A0C4E324E65BB2001EEBEF /* APIService.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		28A0C4E524E65D2B001EEBEF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				28A0C4E624E65D38001EEBEF /* SearchModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		3BCC2F2071AB70F4721E78BA /* Frameworks */ = {
@@ -318,8 +364,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28A0C4E024E63C82001EEBEF /* SearchItemCell.swift in Sources */,
+				28A0C4E424E65BB2001EEBEF /* APIService.swift in Sources */,
 				28A0C4BC24E62286001EEBEF /* ViewController.swift in Sources */,
+				28A0C4E724E65D38001EEBEF /* SearchModel.swift in Sources */,
 				28A0C4B824E62286001EEBEF /* AppDelegate.swift in Sources */,
+				28A0C4DB24E62E2B001EEBEF /* ListViewModel.swift in Sources */,
+				28A0C4E224E63F19001EEBEF /* Router.swift in Sources */,
 				28A0C4BA24E62286001EEBEF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -484,6 +535,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E2DMDBYTFU;
 				INFOPLIST_FILE = RxTestSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -503,6 +555,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E2DMDBYTFU;
 				INFOPLIST_FILE = RxTestSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
