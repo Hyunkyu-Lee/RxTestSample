@@ -150,6 +150,7 @@ class ViewController: UIViewController {
         }
         .filterNil()
         .map{ [SectionModel<String, SearchItem>(model: "listItem", items: $0)] }
+        .observeOn(MainScheduler.instance)
         .bind(to: tableView.rx.items(dataSource: listDataSource))
         .disposed(by: disposeBag)
     }
