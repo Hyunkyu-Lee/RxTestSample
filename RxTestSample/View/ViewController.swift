@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import RxViewController
 import RxOptional
+import RxDataSources
 import SnapKit
 
 
@@ -64,7 +65,7 @@ class ViewController: UIViewController {
     lazy var tableView: UITableView = { [weak self] in
         let _tableView = UITableView(frame: .zero, style: .plain)
         _tableView.separatorStyle        = .none
-        _tableView.estimatedRowHeight    = 168
+        _tableView.estimatedRowHeight    = 88
         _tableView.backgroundColor       = .secondarySystemBackground
         _tableView.register(SearchItemCell.self, forCellReuseIdentifier: String(describing: SearchItemCell.self))
         _tableView.showsVerticalScrollIndicator = false
@@ -75,6 +76,8 @@ class ViewController: UIViewController {
     }()
     
     override func viewDidLoad() {
+        tableView.dataSource = nil
+        tableView.delegate = nil
         super.viewDidLoad()
         self.setViewHierachy()
         self.setConstraints()
@@ -123,7 +126,42 @@ class ViewController: UIViewController {
     }
     
     func bind() {
+        searchTextField.rx.text.orEmpty
+            .throttle(DispatchTimeInterval.milliseconds(500), latest:false, scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+            .map { $0.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) ?? "" }
+            .flatMapLatest { query -> Observable<String?> in
+                if (query.isEmpty) {
+                    return .just(nil)
+                } else {
+                    return .just(query)
+                }
+            }
+            .filterNil()
+            .bind(to: viewModel.searchTextRelay)
+            .disposed(by: disposeBag)
         
+        viewModel.listDataObservable
+            .map{[weak self] result -> [SearchItem]? in
+                //                guard let `self` = self else { return nil }
+                guard let list = result?.items else { return nil }
+                guard list.count > 0 else { return nil }
+                return list
+        }
+        .filterNil()
+        .map{ [SectionModel<String, SearchItem>(model: "listItem", items: $0)] }
+        .bind(to: tableView.rx.items(dataSource: listDataSource))
+        .disposed(by: disposeBag)
     }
 }
 
+extension ViewController {
+    var listDataSource: RxTableViewSectionedReloadDataSource<SectionModel<String, SearchItem>> {
+        return RxTableViewSectionedReloadDataSource(configureCell: { (dataSource, tableView, indexPath, data) -> UITableViewCell in
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchItemCell.self)) as! SearchItemCell
+//            guard let itemData = data else { return UITableViewCell() }
+            cell.compose(data: data)
+            return cell
+        })
+    }
+}
