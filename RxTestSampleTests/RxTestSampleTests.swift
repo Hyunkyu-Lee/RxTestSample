@@ -7,24 +7,47 @@
 //
 
 import XCTest
-@testable import RxTestSample
+
 import RxTest
+import RxBlocking
+import RxCocoa
+import RxSwift
+
+@testable import RxTestSample
 
 class RxTestSampleTests: XCTestCase {
 
+    var viewModel : ListViewModel!
+    var scheduler : TestScheduler!
+    var disposeBag : DisposeBag!
+    
+    fileprivate var apiService = APIService.init()
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.setUp()
+        viewModel = ListViewModel()
+        scheduler = TestScheduler(initialClock: 0)
+        disposeBag = DisposeBag()
     }
 
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let resultObservable = viewModel.listDataObservable
+        
+        scheduler.createHotObservable([.next(10, "RxSwift")])
+            .bind(to: viewModel.searchTextRelay)
+            .disposed(by: disposeBag)
+        
+        scheduler.start()
+            let result = resultObservable.toBlocking()
+            let values = try! result.first()!
+            XCTAssertGreaterThan(values?.items?.count ?? 0, 0)
     }
 
+    override func tearDown() {
+        viewModel = nil
+        super.tearDown()
+    }
+    
 //    func testPerformanceExample() {
 //        // This is an example of a performance test case.
 //        self.measure {
